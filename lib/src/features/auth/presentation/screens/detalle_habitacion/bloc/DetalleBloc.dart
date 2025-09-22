@@ -10,12 +10,13 @@ class DetalleBloc extends Bloc<DetalleEvent, DetalleState> {
   void _onCargarDetalleHabitacion(
     CargarDetalleHabitacion event,
     Emitter<DetalleState> emit,
-  ) {
+  ) async {
     emit(state.copyWith(cargando: true));
 
-    // Simulación de carga de detalle
-    Future.delayed(const Duration(milliseconds: 500), () {
+    await Future.delayed(const Duration(milliseconds: 500));
+
+    if (!isClosed) {
       emit(state.copyWith(habitacion: event.habitacion, cargando: false));
-    });
+    }
   }
 }

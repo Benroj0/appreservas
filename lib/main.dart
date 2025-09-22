@@ -39,11 +39,26 @@ class MyApp extends StatelessWidget {
           AppRoutes.listaHabitacion: (context) => const ListaPage(),
         },
         onGenerateRoute: (settings) {
+          // Validación para evitar crash
           if (settings.name == AppRoutes.detalleHabitacion) {
-            final habitacion = settings.arguments as String;
-            return MaterialPageRoute(
-              builder: (context) => DetallePage(habitacion: habitacion),
-            );
+            final args = settings.arguments;
+            if (args is String) {
+              return MaterialPageRoute(
+                builder: (context) => DetallePage(habitacion: args),
+              );
+            } else {
+              // fallback si no llega el argumento
+              return MaterialPageRoute(
+                builder: (context) => const Scaffold(
+                  body: Center(
+                    child: Text(
+                      "Error: no se recibió información de la habitación",
+                      style: TextStyle(fontSize: 18, color: Colors.red),
+                    ),
+                  ),
+                ),
+              );
+            }
           }
           if (settings.name == AppRoutes.confirmacion) {
             return MaterialPageRoute(

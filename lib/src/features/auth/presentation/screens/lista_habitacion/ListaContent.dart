@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_application_1/src/routing/app_routes.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'bloc/ListaBloc.dart';
 import 'bloc/ListaEvent.dart';
@@ -42,7 +43,7 @@ class _ListaContentState extends State<ListaContent> {
                 onTap: () {
                   Navigator.pushNamed(
                     context,
-                    "/detalleHabitacion",
+                    AppRoutes.detalleHabitacion,
                     arguments: hab,
                   );
                 },

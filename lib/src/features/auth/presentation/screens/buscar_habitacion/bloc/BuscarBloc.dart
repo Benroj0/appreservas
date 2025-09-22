@@ -18,8 +18,6 @@ class BuscarBloc extends Bloc<BuscarEvent, BuscarState> {
         buscando: true,
       ),
     );
-
-    // Simulación de búsqueda
     Future.delayed(const Duration(seconds: 1), () {
       emit(state.copyWith(buscando: false));
     });
