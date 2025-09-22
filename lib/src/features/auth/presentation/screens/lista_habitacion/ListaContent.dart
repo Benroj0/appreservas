@@ -19,6 +19,14 @@ class _ListaContentState extends State<ListaContent> {
     context.read<ListaBloc>().add(CargarListaHabitaciones());
   }
 
+  // Función para decidir qué imagen mostrar
+  String _assetDesdeString(String hab) {
+    final l = hab.toLowerCase();
+    if (l.contains("doble")) return "assets/img/doble.png";
+    if (l.contains("suite")) return "assets/img/suite.png";
+    return "assets/img/simple.png";
+  }
+
   @override
   Widget build(BuildContext context) {
     return BlocBuilder<ListaBloc, ListaState>(
@@ -36,9 +44,22 @@ class _ListaContentState extends State<ListaContent> {
           itemCount: state.habitaciones.length,
           itemBuilder: (context, index) {
             final hab = state.habitaciones[index];
+            final assetImg = _assetDesdeString(hab);
+
             return Card(
               margin: const EdgeInsets.only(bottom: 12),
               child: ListTile(
+                leading: ClipRRect(
+                  borderRadius: BorderRadius.circular(8),
+                  child: Image.asset(
+                    assetImg,
+                    width: 56,
+                    height: 56,
+                    fit: BoxFit.cover,
+                    errorBuilder: (_, __, ___) =>
+                        const Icon(Icons.bed, size: 40),
+                  ),
+                ),
                 title: Text(hab),
                 onTap: () {
                   Navigator.pushNamed(
